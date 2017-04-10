@@ -264,8 +264,16 @@ JSM.ConvertJSONDataToThreeMeshes = function (jsonData, textureLoadedCallback, as
 				}
 			}
 
+
 			var mesh = new THREE.Mesh (geometry, material);
 			mesh.originalJsonIndex = meshIndex;
+
+			// wireframe
+			var geo = new THREE.EdgesGeometry( geometry );
+			var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 2 } );
+			var wireframe = new THREE.LineSegments( geo, mat );
+			mesh.add( wireframe );
+
 			resultMeshes.push (mesh);
 		}
 

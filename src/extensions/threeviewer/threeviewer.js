@@ -83,6 +83,7 @@ JSM.ThreeViewer.prototype.InitThree = function (canvas)
 		antialias : true
 	};
 	this.renderer = new THREE.WebGLRenderer (parameters);
+	this.effect = new THREE.OutlineEffect (this.renderer);
 	if (!this.renderer) {
 		return false;
 	}
@@ -437,7 +438,7 @@ JSM.ThreeViewer.prototype.Draw = function ()
 	var lightPosition = new THREE.Vector3 ().subVectors (this.cameraMove.eye, this.cameraMove.center);
 	this.directionalLight.position.set (lightPosition.x, lightPosition.y, lightPosition.z);
 
-	this.renderer.render (this.scene, this.camera);
+	this.effect.render (this.scene, this.camera);
 	
 	if (this.runAfterRender !== null) {
 		this.runAfterRender ();
@@ -463,5 +464,5 @@ JSM.ThreeViewer.prototype.StartDrawLoop = function ()
 
 JSM.ThreeViewer.prototype.IsRelevantObject = function (threeObj)
 {
-	return (threeObj instanceof THREE.Mesh || threeObj instanceof THREE.LineSegments || threeObj instanceof THREE.Points);
+	return (threeObj instanceof THREE.Mesh || threeObj instanceof THREE.Points);
 };

@@ -25,11 +25,6 @@ def Main ():
 	if not builder.CheckDependencies ():
 		PrintErrors (builder)
 		return 1
-	
-	PrintTitle ('Run unit tests')
-	if not builder.RunUnitTests ():
-		PrintErrors (builder)
-		return 1
     
 	PrintTitle ('JSHint check')
 	if not builder.JSHintCheck ():
